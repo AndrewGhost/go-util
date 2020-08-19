@@ -60,14 +60,14 @@ func TestInArray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := InArray(tt.args.target, tt.args.arr); got != tt.want {
-				t.Errorf("InArray() = %v, want %v", got, tt.want)
+				t.Errorf("In() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 // go test -v ./array_test.go array.go -test.run TestIntersection
-func TestIntersectArray(t *testing.T) {
+func TestIntersect(t *testing.T) {
 	type args struct {
 		a interface{}
 		b interface{}
@@ -89,7 +89,7 @@ func TestIntersectArray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var ret []int64
-			if got := IntersectArray(tt.args.a, tt.args.b, &ret); !reflect.DeepEqual(ret, tt.want) {
+			if got := Intersect(tt.args.a, tt.args.b, &ret); !reflect.DeepEqual(ret, tt.want) {
 				t.Errorf("Intersection() = %v, want %v", got, tt.want)
 			}
 		})
@@ -97,7 +97,7 @@ func TestIntersectArray(t *testing.T) {
 }
 
 // go test -v ./array_test.go array.go -test.run TestDiffArray
-func TestDiffArray(t *testing.T) {
+func TestDiff(t *testing.T) {
 	type args struct {
 		X interface{}
 		Y interface{}
@@ -127,15 +127,15 @@ func TestDiffArray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var ret []int64
-			if got := DiffArray(tt.args.X, tt.args.Y, &ret); !reflect.DeepEqual(ret, tt.want) {
-				t.Errorf("DiffArray() = %v, want %v", got, tt.want)
+			if got := Diff(tt.args.X, tt.args.Y, &ret); !reflect.DeepEqual(ret, tt.want) {
+				t.Errorf("Diff() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 // go test -v ./array_test.go array.go -test.run TestUnique
-func TestUniqueArray(t *testing.T) {
+func TestUnique(t *testing.T) {
 	type args struct {
 		slice interface{}
 	}
@@ -155,7 +155,7 @@ func TestUniqueArray(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var ret []int64
-			if got := UniqueArray(tt.args.slice, &ret); !reflect.DeepEqual(ret, tt.want) {
+			if got := Unique(tt.args.slice, &ret); !reflect.DeepEqual(ret, tt.want) {
 				t.Errorf("Unique() = %v, want %v", got, tt.want)
 			}
 			t.Log(ret)
@@ -164,7 +164,7 @@ func TestUniqueArray(t *testing.T) {
 }
 
 // go test -v ./array_test.go array.go -test.run TestExplodeArray
-func TestExplodeArray(t *testing.T) {
+func TestExplode(t *testing.T) {
 	type args struct {
 		delimiter string
 		array     interface{}
@@ -201,8 +201,8 @@ func TestExplodeArray(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ExplodeArray(tt.args.delimiter, tt.args.array); got != tt.want {
-				t.Errorf("ExplodeArray() = %v, want %v", got, tt.want)
+			if got := Explode(tt.args.delimiter, tt.args.array); got != tt.want {
+				t.Errorf("Explode() = %v, want %v", got, tt.want)
 			}
 		})
 	}

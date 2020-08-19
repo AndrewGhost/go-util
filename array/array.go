@@ -20,7 +20,7 @@ func InArray(target interface{}, arr interface{}) bool {
 }
 
 // 两个数组的交集
-func IntersectArray(a, b, refRet interface{}) error {
+func Intersect(a, b, refRet interface{}) error {
 	var (
 		ifSlice []interface{}
 	)
@@ -48,7 +48,7 @@ func IntersectArray(a, b, refRet interface{}) error {
 //两个数组的差集
 // eg1. X : []int64{1,2,3,4}, Y: []int64{2,3,5,6}, 差集：[]int64{1,4}
 // eg1. X : []int64{2,3,5,6}, Y; []int64{1,2,3,4}, 差集：
-func DiffArray(X, Y, refRet interface{}) error {
+func Diff(X, Y, refRet interface{}) error {
 	var (
 		ifSlice []interface{}
 		m       = make(map[interface{}]int)
@@ -76,7 +76,7 @@ func DiffArray(X, Y, refRet interface{}) error {
 }
 
 // 数组去重
-func UniqueArray(slice interface{}, refRet interface{}) error {
+func Unique(slice interface{}, refRet interface{}) error {
 	var (
 		ifSlice []interface{}
 	)
@@ -99,7 +99,7 @@ func UniqueArray(slice interface{}, refRet interface{}) error {
 }
 
 // 数组拼装为字符串
-func ExplodeArray(delimiter string, array interface{}) string {
+func Explode(delimiter string, array interface{}) string {
 	var (
 		joinStr string
 	)

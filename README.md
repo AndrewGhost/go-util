@@ -7,6 +7,7 @@ provide some tool code to apply for slice, struct, map, and so on...
 ### IntersectArray
 ### DiffArray
 ### UniqueArray
+### UniqueArray
 
 ## runtime method
 
