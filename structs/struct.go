@@ -1,6 +1,7 @@
 package structs
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 )
@@ -42,29 +43,45 @@ func SetStructFields(s interface{}, fieldValues map[string]interface{}) error {
 }
 
 // 将元素类型为struct的slice转换为map
-func ConvertToMap(s interface{}, key string) map[interface{}]interface{} {
+func ConvertToMap(s interface{}, key string) (map[interface{}]interface{}, error) {
+	var (
+		isElemPtr bool
+	)
 	if reflect.TypeOf(s).Kind() != reflect.Slice {
-		return nil
+		return nil, errors.New("interface not slice type")
 	}
 
-	if reflect.TypeOf(s).Elem().Kind() != reflect.Struct {
-		return nil
+	elem := reflect.TypeOf(s).Elem()
+	if elem.Kind() == reflect.Ptr {
+		isElemPtr = true
+		elem = elem.Elem()
+	}
+
+	if elem.Kind() != reflect.Struct {
+		return nil, errors.New("elem not struct type")
+	}
+
+	if _, ok := elem.FieldByName(key); !ok {
+		return nil, errors.New("field not exist, field=" + key)
 	}
 
 	refv := reflect.ValueOf(s)
 	if refv.Len() == 0 {
-		return nil
-	}
-
-	if !refv.Index(0).FieldByName(key).IsValid() {
-		return nil
+		return nil, nil
 	}
 
 	retMap := make(map[interface{}]interface{})
 	for i := 0; i < refv.Len(); i++ {
-		field := refv.Index(i).FieldByName(key)
+		var field reflect.Value
+		if isElemPtr {
+			field = refv.Index(i).Elem().FieldByName(key)
+
+		} else {
+			field = refv.Index(i).FieldByName(key)
+		}
+
 		retMap[field.Interface()] = refv.Index(i).Interface()
 	}
 
-	return retMap
+	return retMap, nil
 }

@@ -47,23 +47,41 @@ func TestSetStructFields(t *testing.T) {
 
 // go test -v ./struct_test.go struct.go -test.run TestConvertToMap
 func TestConvertToMap(t *testing.T) {
-	type args struct {
-		s   interface{}
-		key string
-	}
 	type User struct {
 		Id   uint64
 		Name string
 	}
+	type args struct {
+		s   interface{}
+		key string
+	}
 	tests := []struct {
-		name string
-		args args
-		want map[interface{}]interface{}
+		name    string
+		args    args
+		want    map[interface{}]interface{}
+		wantErr bool
 	}{
 		{
-			name: "convertMap",
+			name: "elem struct value",
 			args: args{
 				s: []User{
+					{
+						Id:   1,
+						Name: "blue",
+					},
+					{
+						Id:   2,
+						Name: "crank",
+					},
+				},
+				key: "Id",
+			},
+			want: nil,
+		},
+		{
+			name: "elem struct pointer",
+			args: args{
+				s: []*User{
 					{
 						Id:   1,
 						Name: "blue",
@@ -80,9 +98,16 @@ func TestConvertToMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ConvertToMap(tt.args.s, tt.args.key); !reflect.DeepEqual(got, tt.want) {
-				t.Log(got[uint64(2)].(User))
-				t.Errorf("convertToMap() = %v, want %v", got, tt.want)
+			got, err := ConvertToMap(tt.args.s, tt.args.key)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ConvertToMap() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ConvertToMap() got = %v, want %v", got, tt.want)
+			}
+			if tt.name == "elem struct pointer" {
+				t.Log(got[uint64(2)].(*User))
 			}
 		})
 	}
