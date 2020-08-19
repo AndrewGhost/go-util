@@ -1,4 +1,4 @@
-package _struct
+package structs
 
 import (
 	"fmt"
@@ -39,4 +39,33 @@ func SetStructFields(s interface{}, fieldValues map[string]interface{}) error {
 	}
 
 	return nil
+}
+
+//将元素类型为struct的slice转换为map
+func convertToMap(s interface{}, key string) map[interface{}]interface{} {
+	if reflect.TypeOf(s).Kind() != reflect.Slice {
+		return nil
+	}
+
+	if reflect.TypeOf(s).Elem().Kind() != reflect.Struct {
+		return nil
+	}
+
+	refv := reflect.ValueOf(s)
+	if refv.Len() == 0 {
+		return nil
+	}
+
+	if !refv.Index(0).FieldByName(key).IsValid() {
+		return nil
+	}
+
+	retMap := make(map[interface{}]interface{})
+	for i := 0; i < refv.Len(); i++ {
+		field := refv.Index(i).FieldByName(key)
+		fmt.Println(field.Interface())
+		retMap[field.Interface()] = refv.Index(i).Interface()
+	}
+
+	return retMap
 }
