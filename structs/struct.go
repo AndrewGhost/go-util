@@ -63,7 +63,6 @@ func ConvertToMap(s interface{}, key string) map[interface{}]interface{} {
 	retMap := make(map[interface{}]interface{})
 	for i := 0; i < refv.Len(); i++ {
 		field := refv.Index(i).FieldByName(key)
-		fmt.Println(field.Interface())
 		retMap[field.Interface()] = refv.Index(i).Interface()
 	}
 
