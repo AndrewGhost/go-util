@@ -41,8 +41,8 @@ func SetStructFields(s interface{}, fieldValues map[string]interface{}) error {
 	return nil
 }
 
-//将元素类型为struct的slice转换为map
-func convertToMap(s interface{}, key string) map[interface{}]interface{} {
+// 将元素类型为struct的slice转换为map
+func ConvertToMap(s interface{}, key string) map[interface{}]interface{} {
 	if reflect.TypeOf(s).Kind() != reflect.Slice {
 		return nil
 	}

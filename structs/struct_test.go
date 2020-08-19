@@ -45,8 +45,8 @@ func TestSetStructFields(t *testing.T) {
 	}
 }
 
-// go test -v ./struct_test.go struct.go -test.run Test_convertToMap
-func Test_convertToMap(t *testing.T) {
+// go test -v ./struct_test.go struct.go -test.run TestConvertToMap
+func TestConvertToMap(t *testing.T) {
 	type args struct {
 		s   interface{}
 		key string
@@ -80,7 +80,7 @@ func Test_convertToMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := convertToMap(tt.args.s, tt.args.key); !reflect.DeepEqual(got, tt.want) {
+			if got := ConvertToMap(tt.args.s, tt.args.key); !reflect.DeepEqual(got, tt.want) {
 				t.Log(got[uint64(2)].(User))
 				t.Errorf("convertToMap() = %v, want %v", got, tt.want)
 			}
