@@ -2,6 +2,7 @@ package util
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 )
 
@@ -95,4 +96,26 @@ func UniqueArray(slice interface{}, refRet interface{}) error {
 	err := json.Unmarshal(jsonStr, &refRet)
 
 	return err
+}
+
+// 数组拼装为字符串
+func ExplodeArray(delimiter string, array interface{}) string {
+	var (
+		joinStr string
+	)
+
+	if reflect.TypeOf(array).Kind() != reflect.Slice {
+		return ""
+	}
+
+	s := reflect.ValueOf(array)
+	if s.Len() == 0 {
+		return ""
+	}
+
+	for i := 0; i < s.Len(); i++ {
+		joinStr += fmt.Sprintf("%v",s.Index(i).Interface()) + delimiter
+	}
+
+	return joinStr[0 : len(joinStr)-1]
 }

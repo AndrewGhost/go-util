@@ -162,3 +162,48 @@ func TestUniqueArray(t *testing.T) {
 		})
 	}
 }
+
+// go test -v ./array_test.go array.go -test.run TestExplodeArray
+func TestExplodeArray(t *testing.T) {
+	type args struct {
+		delimiter string
+		array     interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name:  "join uint64 array",
+			args: args{
+				delimiter: ",",
+				array: []uint64{1,2,3,4},
+			},
+			want: "1,2,3,4",
+		},
+		{
+			name:  "join int64 array",
+			args: args{
+				delimiter: ",",
+				array: []int64{1,2,3,4},
+			},
+			want: "1,2,3,4",
+		},
+		{
+			name:  "join string array",
+			args: args{
+				delimiter: ",",
+				array: []string{"a","b","c","d"},
+			},
+			want: "a,b,c,d",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ExplodeArray(tt.args.delimiter, tt.args.array); got != tt.want {
+				t.Errorf("ExplodeArray() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
