@@ -1,6 +1,8 @@
-package util
+package _struct
 
-import "testing"
+import (
+	"testing"
+)
 
 // go test -v ./struct_test.go struct.go -test.run TestSetStructFields
 func TestSetStructFields(t *testing.T) {

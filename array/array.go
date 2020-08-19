@@ -1,4 +1,4 @@
-package util
+package array
 
 import (
 	"encoding/json"
@@ -114,7 +114,7 @@ func ExplodeArray(delimiter string, array interface{}) string {
 	}
 
 	for i := 0; i < s.Len(); i++ {
-		joinStr += fmt.Sprintf("%v",s.Index(i).Interface()) + delimiter
+		joinStr += fmt.Sprintf("%v", s.Index(i).Interface()) + delimiter
 	}
 
 	return joinStr[0 : len(joinStr)-1]

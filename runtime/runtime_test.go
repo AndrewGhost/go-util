@@ -1,6 +1,8 @@
-package util
+package runtime
 
-import "testing"
+import (
+	"testing"
+)
 
 // go test -v ./runtime_test.go runtime.go -test.run TestGetCurCalleeFunc
 func TestGetCurCalleeFunc(t *testing.T) {

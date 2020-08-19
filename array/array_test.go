@@ -1,4 +1,4 @@
-package util
+package array
 
 import (
 	"reflect"
@@ -175,26 +175,26 @@ func TestExplodeArray(t *testing.T) {
 		want string
 	}{
 		{
-			name:  "join uint64 array",
+			name: "join uint64 array",
 			args: args{
 				delimiter: ",",
-				array: []uint64{1,2,3,4},
+				array:     []uint64{1, 2, 3, 4},
 			},
 			want: "1,2,3,4",
 		},
 		{
-			name:  "join int64 array",
+			name: "join int64 array",
 			args: args{
 				delimiter: ",",
-				array: []int64{1,2,3,4},
+				array:     []int64{1, 2, 3, 4},
 			},
 			want: "1,2,3,4",
 		},
 		{
-			name:  "join string array",
+			name: "join string array",
 			args: args{
 				delimiter: ",",
-				array: []string{"a","b","c","d"},
+				array:     []string{"a", "b", "c", "d"},
 			},
 			want: "a,b,c,d",
 		},
